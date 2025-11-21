@@ -39,24 +39,6 @@ A complete web-based **Radiation Monitoring System** built using **Node.js**, **
 - Firebase Firestore
 
 
-## 📁 Folder Structure
-
-radiation-monitoring-system/
-│
-├── app.js
-├── firebase-admin-config.js
-├── service-account-key.json # Ignored from Git
-├── .env # Ignored from Git
-│
-├── public/
-│ ├── index.html # Login/Register
-│ ├── user.html # User Dashboard
-│ ├── retrieve.html # Admin Dashboard
-│ └── client.js
-│
-└── package.json
-
-
 ## 🔧 Installation
 # Clone the Repository
 ```bash
