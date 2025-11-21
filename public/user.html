@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiation Monitoring System - User Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: #ffffff !important;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: #667eea !important;
+        }
+        
+        .main-container {
+            padding: 2rem 0;
+        }
+        
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid #eef1f4;
+            margin-bottom: 2rem;
+        }
+        
+        .card-header {
+            background: #ffffff;
+            color: #111827;
+            border-radius: 20px 20px 0 0 !important;
+            border: 1px solid #e9ecef;
+            border-bottom: 2px solid #dee2e6;
+            padding: 1.25rem 1.5rem;
+        }
+        
+        .card-header h4, .card-header h5, .card-header h6 {
+            margin: 0;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        
+        .form-floating {
+            margin-bottom: 1rem;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 24px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Enhanced button animations */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Enhanced form controls */
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            transform: scale(1.02);
+        }
+        
+        /* Enhanced card hover effects */
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        /* Enhanced navigation */
+        .navbar {
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Enhanced alert styling */
+        .alert {
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            box-shadow: none;
+            backdrop-filter: none;
+        }
+        
+        /* Enhanced form styling */
+        .form-floating {
+            transition: all 0.3s ease;
+        }
+        
+        .form-floating:focus-within {
+            transform: scale(1.02);
+        }
+        
+        /* Enhanced dropdown styling */
+        .form-select {
+            transition: all 0.3s ease;
+        }
+        
+        .form-select:focus {
+            transform: scale(1.02);
+        }
+        
+        /* Enhanced input styling */
+        .form-control {
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            transform: scale(1.02);
+        }
+        
+        /* Enhanced submit button */
+        .btn-success {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-success::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-success:active::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Enhanced user info display */
+        .user-info {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+        }
+        
+        /* Enhanced form section */
+        .form-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: none;
+        }
+        
+        /* Enhanced responsive design */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem 0;
+            }
+            
+            .card {
+                margin-bottom: 1rem;
+            }
+            
+            .form-floating {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        .btn-outline-danger {
+            border: 2px solid #dc3545;
+            color: #dc3545;
+            padding: 8px 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-danger:hover {
+            background: #dc3545;
+            border-color: #dc3545;
+            transform: translateY(-2px);
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+        
+        .loading {
+            display: none;
+        }
+        
+        .loading.show {
+            display: inline-block;
+        }
+        
+        .user-info {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .user-info h6 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .radiation-icon {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+        }
+        
+        .form-section {
+            background: rgba(248, 249, 250, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-section h6 {
+            color: #495057;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .cascading-dropdown {
+            transition: all 0.3s ease;
+        }
+        
+        .cascading-dropdown:disabled {
+            opacity: 0.6;
+            background-color: #f8f9fa;
+        }
+        
+        .date-input {
+            background-color: #f8f9fa;
+        }
+        
+        .radiation-input {
+            position: relative;
+        }
+        
+        .radiation-input::after {
+            content: "μSv/h";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-weight: 600;
+            pointer-events: none;
+        }
+        
+        .radiation-input input {
+            padding-right: 60px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-radiation-alt me-2"></i>
+                Radiation Monitoring System
+            </a>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-2"></i>
+                        <span id="userName">User</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" id="logoutButton">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card mb-3">
+                    <div class="card-header">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-plus-circle me-2"></i>Radiation Data Entry</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- User Information -->
+                        <div class="user-info">
+                            <h6><i class="fas fa-info-circle me-2"></i>User Information</h6>
+                            <p class="mb-0">
+                                <strong>Employee ID:</strong> <span id="currentEmpId">-</span><br>
+                                <strong>Block:</strong> <span id="currentBlock">-</span>
+                            </p>
+                        </div>
+                        
+                        <!-- Alert Messages -->
+                        <div id="alertContainer"></div>
+                        
+                        <!-- Radiation Data Form -->
+                        <form id="radiationForm">
+                            <!-- Employee Information Section -->
+                            <div class="form-section">
+                                <h6><i class="fas fa-user me-2"></i>Employee Information</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="empId" placeholder="Employee ID" required>
+                                            <label for="empId">Employee ID</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="empName" placeholder="Employee Name" required>
+                                            <label for="empName">Employee Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Location Information Section -->
+                            <div class="form-section">
+                                <h6><i class="fas fa-map-marker-alt me-2"></i>Location Information</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select class="form-select cascading-dropdown" id="blockSelect" required>
+                                                <option value="">Select Block</option>
+                                                <option value="Block A">Block A</option>
+                                                <option value="Block B">Block B</option>
+                                                <option value="Block C">Block C</option>
+                                                <option value="Block D">Block D</option>
+                                            </select>
+                                            <label for="blockSelect">Block</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select class="form-select cascading-dropdown" id="plantSelect" required disabled>
+                                                <option value="">Select Plant</option>
+                                            </select>
+                                            <label for="plantSelect">Plant</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select class="form-select cascading-dropdown" id="areaSelect" required disabled>
+                                                <option value="">Select Area</option>
+                                            </select>
+                                            <label for="areaSelect">Area</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Radiation Readings Section -->
+                            <div class="form-section">
+                                <h6><i class="fas fa-radiation-alt me-2 radiation-icon"></i>Radiation Readings</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating radiation-input">
+                                            <input type="number" class="form-control" id="nearReading" 
+                                                   placeholder="Near Reading" step="0.1" min="0" required>
+                                            <label for="nearReading">Near Reading (μSv/h)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating radiation-input">
+                                            <input type="number" class="form-control" id="oneMeterReading" 
+                                                   placeholder="One Meter Reading" step="0.1" min="0" required>
+                                            <label for="oneMeterReading">One Meter Reading (μSv/h)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Date Section -->
+                            <div class="form-section">
+                                <h6><i class="fas fa-calendar me-2"></i>Date Information</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="date" class="form-control date-input" id="currentDate" required>
+                                            <label for="currentDate">Current Date</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <span class="loading spinner-border spinner-border-sm me-2" role="status"></span>
+                                    <i class="fas fa-save me-2"></i>Submit Radiation Data
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>

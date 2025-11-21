@@ -1,0 +1,43 @@
+{
+  "name": "radiation-monitoring-system",
+  "version": "1.0.0",
+  "description": "Radiation Monitoring System (migrated to Firebase)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "migrate-to-firebase": "node migrate-to-firebase.js",
+    "deploy-rules": "firebase deploy --only firestore:rules"
+  },
+  "keywords": [
+    "radiation",
+    "monitoring",
+    "nodejs",
+    "express",
+    "firebase"
+  ],
+  "author": "AI Developer",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "express-session": "^1.17.3",
+    "firebase": "^12.5.0",
+    "firebase-admin": "^13.5.0",
+    "firebase-tools": "^14.22.0",
+    "helmet": "^7.1.0",
+    "nodemailer": "^6.9.7",
+    "socket.io": "^4.7.4",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "twilio": "^4.19.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

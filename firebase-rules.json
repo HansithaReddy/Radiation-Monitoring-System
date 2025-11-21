@@ -1,0 +1,31 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === request.auth.uid || request.auth.token.isAdmin === true",
+        ".write": "$uid === request.auth.uid || request.auth.token.isAdmin === true"
+      }
+    },
+    "radiation-readings": {
+      ".read": "request.auth != null",
+      ".write": "request.auth != null",
+      ".indexOn": ["block", "plant", "area", "date", "employeeId"]
+    },
+    "radiationThresholds": {
+      ".read": "request.auth != null",
+      ".write": "request.auth.token.isAdmin === true",
+      ".indexOn": ["block", "plant", "area", "is_active"]
+    },
+    "alertHistory": {
+      ".read": "request.auth != null",
+      ".write": "request.auth != null",
+      ".indexOn": ["block", "created_at", "alert_level"]
+    },
+    "notificationSettings": {
+      "$uid": {
+        ".read": "$uid === request.auth.uid || request.auth.token.isAdmin === true",
+        ".write": "$uid === request.auth.uid || request.auth.token.isAdmin === true"
+      }
+    }
+  }
+}
